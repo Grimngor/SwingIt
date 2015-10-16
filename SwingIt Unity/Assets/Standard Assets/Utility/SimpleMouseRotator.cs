@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-using UnityStandardAssets.CrossPlatformInput;
+//using UnityStandardAssets.CrossPlatformInput;
 
 namespace UnityStandardAssets.Utility
 {
@@ -43,7 +43,7 @@ namespace UnityStandardAssets.Utility
             // read input from mouse or mobile controls
             float inputH;
             float inputV;
-            if (relative)
+			/*NUEVo COMENTADO if (relative)
             {
                 inputH = CrossPlatformInputManager.GetAxis("Mouse X");
                 inputV = CrossPlatformInputManager.GetAxis("Mouse Y");
@@ -102,7 +102,7 @@ namespace UnityStandardAssets.Utility
                 m_TargetAngles.y = Mathf.Lerp(-rotationRange.y*0.5f, rotationRange.y*0.5f, inputH/Screen.width);
                 m_TargetAngles.x = Mathf.Lerp(-rotationRange.x*0.5f, rotationRange.x*0.5f, inputV/Screen.height);
             }
-
+			*/
             // smoothly interpolate current values to target angles
             m_FollowAngles = Vector3.SmoothDamp(m_FollowAngles, m_TargetAngles, ref m_FollowVelocity, dampingTime);
 
