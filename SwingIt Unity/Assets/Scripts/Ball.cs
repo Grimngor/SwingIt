@@ -7,8 +7,10 @@ public class Ball : MonoBehaviour {
 	public float launchForce;
 	private bool applyForce;
 	private Rigidbody2D compRigiBody2D;
-	private DistanceJoint2D compJoint;
+	[HideInInspector]
+	public DistanceJoint2D compJoint;
 	public float fastForward;
+	private ProceduralLevel proceduralLevel;
 
 	//TimeWin es el tiempo que tiene que pasar posado en el objetivo para ganar
 	public float timeWin = 1;
@@ -19,6 +21,7 @@ public class Ball : MonoBehaviour {
 		compRigiBody2D.velocity = new Vector2 (pendulumForce, 0);
 		compJoint = GetComponent<DistanceJoint2D> ();
 		compJoint.connectedAnchor = new Vector2(transform.parent.position.x,transform.parent.position.y);
+		proceduralLevel = GameObject.Find ("ProceduralLevel").GetComponent<ProceduralLevel> ();
 	}
 
 	void Update () {
@@ -63,6 +66,7 @@ public class Ball : MonoBehaviour {
 				compJoint.enabled = true;
 				compRigiBody2D.velocity = new Vector2 (pendulumForce, 0);
 				timeWin = 1;
+				proceduralLevel.NextLevel();
 			}
 		}
 	}
