@@ -1,7 +1,7 @@
 fileFormatVersion: 2
-guid: 357f56f0e4df3d948ad9e7086e86f6ef
-labels:
-- SpriteColorFX
+guid: f7d1df61269c2ac438cff64b87ea1782
+timeCreated: 1445351794
+licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
   serializedVersion: 2
@@ -27,7 +27,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 1024
+  maxTextureSize: 2048
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -50,7 +50,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites: []
-  spritePackingTag: SpriteColorFx
+  spritePackingTag: Background
   userData: 
   assetBundleName: 
   assetBundleVariant: 
