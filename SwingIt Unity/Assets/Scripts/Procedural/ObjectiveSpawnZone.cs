@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//ObjectiveSpawnZone. Clase que tiene la zona de spawn del objetivo
 public class ObjectiveSpawnZone : MonoBehaviour {
 
 	[HideInInspector]
@@ -14,7 +15,10 @@ public class ObjectiveSpawnZone : MonoBehaviour {
 	public float minY;
 	[HideInInspector]
 	public float maxY;
-	
+
+	/// <summary>
+	/// Awake. Se obtiene el componente collider y se calcula los puntos minimos y maximos del cuadrado
+	/// </summary>
 	void Awake () {
 		targetZone = GetComponent<BoxCollider2D> ();
 		minX = targetZone.bounds.min.x;
