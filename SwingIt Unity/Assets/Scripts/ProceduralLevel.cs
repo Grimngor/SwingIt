@@ -21,6 +21,8 @@ public class ProceduralLevel : MonoBehaviour {
 	private Ball ball;
 	private GameObject objective;
 
+	private GameObject prefabPrevious;
+
 	// Use this for initialization
 	void Awake () {
 		level = 1;
@@ -30,6 +32,8 @@ public class ProceduralLevel : MonoBehaviour {
 		pool_tier_1 = new GameObject[tier_1.Length];
 		for (int i=0; i< tier_1.Length; i++) {
 			pool_tier_1[i] = (GameObject)Instantiate(tier_1[i]);
+			pool_tier_1[i].transform.parent = transform;
+			pool_tier_1[i].SetActive(false);
 		}
 		/*pool_tier_2 = new GameObject[tier_2.Length];
 		for (int i=0; i< tier_2.Length; i++) {
@@ -51,11 +55,28 @@ public class ProceduralLevel : MonoBehaviour {
 		for (int i=0; i< tier_6.Length; i++) {
 			pool_tier_6[i] = (GameObject)Instantiate(tier_6[i]);
 		}*/
-		NextLevel ();
+		//NextLevel ();
 	}
 	
 	public void NextLevel(){
 		level++;
+		if (level > 2)
+			prefabPrevious.SetActive (false);
+		GameObject nextPrefab = pool_tier_1 [0];
+		nextPrefab.SetActive (true);
+		if (level < 4) {
+			NextTier1(nextPrefab);
+		} else {
+			NextTier1(nextPrefab);
+		}
+		prefabPrevious = nextPrefab;
+	}
 
+	private void NextTier1(GameObject prefab){
+		ObjectiveSpawnZone tier = prefab.transform.FindChild("SpawnZone").GetComponent<ObjectiveSpawnZone> ();
+		float posX = Random.Range (tier.minX, tier.maxX);
+		float posY = Random.Range (tier.minY, tier.maxY);
+		objective.transform.position = new Vector3 (
+			posX,posY, 0);
 	}
 }
