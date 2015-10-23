@@ -19,6 +19,7 @@ public class Ball : MonoBehaviour {
 	//TimeWin es el tiempo que tiene que pasar posado en el objetivo para ganar
 	public float timeWin = 1;
 
+	private Vector2 previousSpeed;
 	/// <summary>
 	/// Start. Se inicializa la bola. Se obtiene todos los compenentes y objetos necesarios
 	/// </summary>
@@ -63,7 +64,18 @@ public class Ball : MonoBehaviour {
 				compRigiBody2D.velocity = compRigiBody2D.velocity.normalized*launchForce;
 			}
 		}
+		if (compRigiBody2D.velocity != Vector2.zero)
+			previousSpeed = compRigiBody2D.velocity;
 	}
+
+	/// <summary>
+	/// Bounce. Rebota la pelota con la fuerza de bounceFactor. El metodo es llamado desde los obstaculos de rebote
+	/// </summary>
+	/// <param name="bounceFactor">Bounce factor.</param>
+	public void Bounce(Vector2 bounceFactor){
+		compRigiBody2D.velocity = new Vector2(previousSpeed.x*bounceFactor.x,previousSpeed.y*bounceFactor.y);
+	}
+
 
 	/// <summary>
 	/// OnTriggerEnter2D. Comprueba si llega a tocar el limite donde el usuario pierde la partida
@@ -71,13 +83,22 @@ public class Ball : MonoBehaviour {
 	/// <param name="other">Collider2D con el que colisiona</param>
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.name.Contains ("Limit")) {
-			transform.localPosition = new Vector3(0,-0.705f,0);
+			transform.localPosition = new Vector3 (0, -0.705f, 0);
 			compJoint.enabled = true;
 			compRigiBody2D.velocity = new Vector2 (pendulumForce, 0);
 			timeWin = 1;
+		} else if (other.name.Contains ("SpeedBoost")) {
+			float boost = other.GetComponent<SpeedBoost>().speedBoost;
+			compRigiBody2D.velocity *= boost;
 		}
 	}
 
+	void OnTriggerExit2D(Collider2D other){
+		if (other.name.Contains ("SpeedBoost")) {
+			float boost = other.GetComponent<SpeedBoost>().speedBoost;
+			compRigiBody2D.velocity /= boost;
+		}
+	}
 	/// <summary>
 	/// OnTriggerStay2D. Comprueba que se mantiene la bola en el objetivo un tiempo igual o mayor a timeWin.
 	/// </summary>

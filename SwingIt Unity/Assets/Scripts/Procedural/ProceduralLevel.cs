@@ -64,15 +64,20 @@ public class ProceduralLevel : MonoBehaviour {
 			pool_tier_4[i].transform.parent = transform;
 			pool_tier_4[i].SetActive(false);
 		}
-		/*
+
 		pool_tier_5 = new GameObject[tier_5.Length];
 		for (int i=0; i< tier_5.Length; i++) {
 			pool_tier_5[i] = (GameObject)Instantiate(tier_5[i]);
+			pool_tier_5[i].transform.parent = transform;
+			pool_tier_5[i].SetActive(false);
 		}
+
 		pool_tier_6 = new GameObject[tier_6.Length];
 		for (int i=0; i< tier_6.Length; i++) {
 			pool_tier_6[i] = (GameObject)Instantiate(tier_6[i]);
-		}*/
+			pool_tier_6[i].transform.parent = transform;
+			pool_tier_6[i].SetActive(false);
+		}
 
 		//Se asigna el primer prefab como previo y se hace un NextLevel
 		prefabPrevious = pool_tier_1 [0];
@@ -94,20 +99,34 @@ public class ProceduralLevel : MonoBehaviour {
 			nextPrefab = pool_tier_2 [Random.Range (0, pool_tier_2.Length)];
 			nextPrefab.SetActive (true);
 			NextTier1 (nextPrefab);
-			NextTier2(nextPrefab);
-		} else if (level <= (numLevels [0] + numLevels [1] + numLevels[2])){
+			NextTier2 (nextPrefab);
+		} else if (level <= (numLevels [0] + numLevels [1] + numLevels [2])) {
 			nextPrefab = pool_tier_3 [Random.Range (0, pool_tier_3.Length)];
 			nextPrefab.SetActive (true);
 			NextTier1 (nextPrefab);
-			NextTier2(nextPrefab);
+			NextTier2 (nextPrefab);
 			//NextTier3(nextPrefab);
-		}else{
+		} else if (level <= (numLevels [0] + numLevels [1] + numLevels [2] + numLevels [3])) {
 			nextPrefab = pool_tier_4 [Random.Range (0, pool_tier_4.Length)];
 			nextPrefab.SetActive (true);
 			NextTier1 (nextPrefab);
-			NextTier2(nextPrefab);
+			NextTier2 (nextPrefab);
 			//NextTier3(nextPrefab);
-			NextTier4(nextPrefab);
+			NextTier4 (nextPrefab);
+		} else if (level <= (numLevels [0] + numLevels [1] + numLevels [2] + numLevels [3] + numLevels [4])) {
+			nextPrefab = pool_tier_5 [Random.Range (0, pool_tier_5.Length)];
+			nextPrefab.SetActive (true);
+			NextTier1 (nextPrefab);
+			NextTier2 (nextPrefab);
+			//NextTier3(nextPrefab);
+			NextTier4 (nextPrefab);
+		} else {
+			nextPrefab = pool_tier_6 [Random.Range (0, pool_tier_6.Length)];
+			nextPrefab.SetActive (true);
+			NextTier1 (nextPrefab);
+			NextTier2 (nextPrefab);
+			//NextTier3(nextPrefab);
+			NextTier4 (nextPrefab);
 		}
 		prefabPrevious = nextPrefab;
 	}
